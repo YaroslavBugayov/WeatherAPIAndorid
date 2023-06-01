@@ -13,10 +13,18 @@ import com.bugayov.weatherapi.domain.usecases.GetCurrentWeatherUseCase
 
 class MainActivity : AppCompatActivity() {
 
-    private val locationStorage by lazy(LazyThreadSafetyMode.NONE) { SharedPrefLocationStorage(applicationContext) }
-    private val weatherRepository by lazy(LazyThreadSafetyMode.NONE) { WeatherRepositoryImpl(locationStorage) }
-    private val locationRepository by lazy(LazyThreadSafetyMode.NONE) { LocationRepositoryImpl(locationStorage) }
-    private val getCurrentWeatherUseCase by lazy(LazyThreadSafetyMode.NONE) { GetCurrentWeatherUseCase(weatherRepository) }
+    private val locationStorage by lazy(LazyThreadSafetyMode.NONE) {
+        SharedPrefLocationStorage(applicationContext)
+    }
+    private val weatherRepository by lazy(LazyThreadSafetyMode.NONE) {
+        WeatherRepositoryImpl(locationStorage)
+    }
+    private val locationRepository by lazy(LazyThreadSafetyMode.NONE) {
+        LocationRepositoryImpl(locationStorage)
+    }
+    private val getCurrentWeatherUseCase by lazy(LazyThreadSafetyMode.NONE) {
+        GetCurrentWeatherUseCase(weatherRepository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
