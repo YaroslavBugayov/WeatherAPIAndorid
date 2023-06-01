@@ -1,13 +1,15 @@
 package com.bugayov.weatherapi.data.repository
 
 import android.graphics.Bitmap
+import com.bugayov.weatherapi.data.storage.interfaces.LocationStorage
 import com.bugayov.weatherapi.domain.models.Weather
 import com.bugayov.weatherapi.domain.repository.WeatherRepository
 
-class WeatherRepositoryImpl : WeatherRepository {
-    override fun getCurrentWeather(location: String): Weather {
+class WeatherRepositoryImpl(private val locationStorage: LocationStorage) : WeatherRepository {
+
+    override fun getCurrentWeather(): Weather {
         return Weather(
-            location = "London",
+            location = locationStorage.getLocation().location,
             condition = "Sun",
             conditionImage = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888),
             temperature = 23.0,
