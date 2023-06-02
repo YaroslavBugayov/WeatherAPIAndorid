@@ -7,6 +7,7 @@ import com.bugayov.weatherapi.data.repository.LocationRepositoryImpl
 import com.bugayov.weatherapi.data.repository.WeatherRepositoryImpl
 import com.bugayov.weatherapi.data.storage.sharedprefs.SharedPrefLocationStorage
 import com.bugayov.weatherapi.domain.usecases.GetCurrentWeatherUseCase
+import com.bugayov.weatherapi.domain.usecases.SetLocationUseCase
 import com.bugayov.weatherapi.presentation.viewmodels.MainViewModel
 
 class MainViewModelFactory(context: Context) : ViewModelProvider.Factory {
@@ -20,11 +21,15 @@ class MainViewModelFactory(context: Context) : ViewModelProvider.Factory {
     private val locationRepository by lazy(LazyThreadSafetyMode.NONE) {
         LocationRepositoryImpl(locationStorage)
     }
+
     private val getCurrentWeatherUseCase by lazy(LazyThreadSafetyMode.NONE) {
         GetCurrentWeatherUseCase(weatherRepository)
     }
+    private val setLocationUseCase by lazy(LazyThreadSafetyMode.NONE) {
+        SetLocationUseCase(locationRepository)
+    }
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MainViewModel(getCurrentWeatherUseCase, locationRepository) as T
+        return MainViewModel(getCurrentWeatherUseCase, setLocationUseCase) as T
     }
 }
