@@ -1,5 +1,6 @@
 package com.bugayov.weatherapi.presentation.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bugayov.weatherapi.domain.models.Weather
@@ -11,15 +12,15 @@ class MainViewModel(
     private val setLocationUseCase: SetLocationUseCase
 ) : ViewModel() {
 
-    val weather = MutableLiveData<Weather>()
+    private val weatherMutable = MutableLiveData<Weather>()
+    val weather: LiveData<Weather> = weatherMutable
 
     fun saveLocation(location: String) {
         setLocationUseCase.execute(location)
-        weather.value = getCurrentWeatherUseCase.execute()
+        weatherMutable.value = getCurrentWeatherUseCase.execute()
     }
 
     fun updateWeather() {
-        weather.value = getCurrentWeatherUseCase.execute()
+        weatherMutable.value = getCurrentWeatherUseCase.execute()
     }
-
 }
