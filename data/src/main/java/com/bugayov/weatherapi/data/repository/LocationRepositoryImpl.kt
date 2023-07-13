@@ -10,4 +10,9 @@ class LocationRepositoryImpl(private val locationStorage: LocationStorage) : Loc
         locationStorage.saveLocation(Location(location))
     }
 
+    override fun getLocation() : String {
+        return locationStorage.getLocation().city
+    }
+
+
 }

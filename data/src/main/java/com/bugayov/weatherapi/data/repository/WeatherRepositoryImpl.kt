@@ -7,9 +7,9 @@ import com.bugayov.weatherapi.domain.repository.WeatherRepository
 
 class WeatherRepositoryImpl(private val locationStorage: LocationStorage) : WeatherRepository {
 
-    override fun getCurrentWeather(): Weather {
+    override fun getCurrentWeather(city: String): Weather {
         return Weather(
-            location = locationStorage.getLocation().location,
+            location = locationStorage.getLocation().city,
             condition = "Sun",
             conditionImage = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888),
             temperature = 23.0,

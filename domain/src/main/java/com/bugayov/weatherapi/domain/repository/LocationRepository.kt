@@ -4,4 +4,5 @@ import android.location.Location
 
 interface LocationRepository {
     fun saveLocation(location: String)
+    fun getLocation() : String
 }

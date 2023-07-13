@@ -13,7 +13,7 @@ class SharedPrefLocationStorage(context: Context) : LocationStorage {
     private val sharedPreferences = context.getSharedPreferences(SHARED_PREF_KEY, Context.MODE_PRIVATE)
 
     override fun saveLocation(location: Location) {
-        sharedPreferences.edit().putString(KEY_LOCATION, location.location).apply()
+        sharedPreferences.edit().putString(KEY_LOCATION, location.city).apply()
     }
 
     override fun getLocation(): Location {

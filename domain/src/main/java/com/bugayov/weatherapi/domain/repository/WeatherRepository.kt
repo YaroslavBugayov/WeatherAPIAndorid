@@ -4,5 +4,5 @@ import com.bugayov.weatherapi.domain.models.Weather
 
 interface WeatherRepository {
 
-    fun getCurrentWeather(): Weather
+    fun getCurrentWeather(city: String): Weather
 }
