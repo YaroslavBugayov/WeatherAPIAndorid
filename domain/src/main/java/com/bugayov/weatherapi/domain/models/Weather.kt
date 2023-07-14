@@ -7,6 +7,6 @@ class Weather (
     val condition: String,
     val conditionImage: Bitmap,
     val temperature: Double,
-    val cloudiness: Double,
+    val cloudiness: Int,
     val windSpeed: Double
 )

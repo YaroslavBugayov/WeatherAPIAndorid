@@ -1,7 +1,8 @@
 package com.bugayov.weatherapi.di
 
-import com.bugayov.weatherapi.data.repository.LocationRepositoryImpl
-import com.bugayov.weatherapi.data.repository.WeatherRepositoryImpl
+import com.bugayov.weatherapi.data.storage.repository.LocationRepositoryImpl
+import com.bugayov.weatherapi.data.network.repository.WeatherRepositoryImpl
+import com.bugayov.weatherapi.data.network.services.WeatherService
 import com.bugayov.weatherapi.data.storage.interfaces.LocationStorage
 import com.bugayov.weatherapi.data.storage.sharedprefs.SharedPrefLocationStorage
 import com.bugayov.weatherapi.domain.repository.LocationRepository
@@ -18,6 +19,10 @@ val dataModule = module {
     }
 
     single<WeatherRepository> {
-        WeatherRepositoryImpl(locationStorage = get())
+        WeatherRepositoryImpl(locationStorage = get(), weatherService = get())
+    }
+
+    single<WeatherService> {
+        WeatherService()
     }
 }

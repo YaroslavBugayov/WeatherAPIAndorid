@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 class TestRepository: WeatherRepository {
-    override fun getCurrentWeather(city: String): Weather {
+    override suspend fun getCurrentWeather(city: String): Weather {
         return Weather(
             location = "TestLocation",
             condition = "Sun",

@@ -1,4 +1,4 @@
-package com.bugayov.weatherapi.data.repository
+package com.bugayov.weatherapi.data.storage.repository
 
 import com.bugayov.weatherapi.data.storage.models.Location
 import com.bugayov.weatherapi.data.storage.interfaces.LocationStorage
