@@ -30,10 +30,6 @@ class MainViewModel(
     fun updateWeather() {
         val city = getLocationUseCase.execute()
         viewModelScope.launch {
-//            val weather = withContext(Dispatchers.IO) {
-//                getCurrentWeatherUseCase.execute(city)
-//            }
-//            weatherMutable.value = weather
             try {
                 val weather = getCurrentWeatherUseCase.execute(city)
                 weatherMutable.value = weather

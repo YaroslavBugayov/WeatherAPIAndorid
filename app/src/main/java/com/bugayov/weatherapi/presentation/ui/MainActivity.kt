@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
             binding.textTemperature.text = getString(R.string.temperature_output, it.temperature)
             binding.textWindSpeed.text = getString(R.string.windSpeed_output, it.windSpeed)
             binding.textCloudiness.text = getString(R.string.cloudiness_output, it.cloudiness)
+            binding.imageView.setImageBitmap(it.conditionImage)
         })
 
         vm.updateWeather()
