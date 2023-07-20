@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bugayov.weatherapi.R
 import com.bugayov.weatherapi.databinding.ActivityMainBinding
 import com.bugayov.weatherapi.presentation.viewmodels.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,9 +21,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         vm.weather.observe(this, Observer{
-            binding.textView.text = it.location
-            binding.textView2.text = it.condition
-            binding.textView3.text = it.temperature.toString()
+            binding.textLocation.text = getString(R.string.location_output, it.location)
+            binding.textCondition.text = getString(R.string.condition_output, it.condition)
+            binding.textTemperature.text = getString(R.string.temperature_output, it.temperature)
+            binding.textWindSpeed.text = getString(R.string.windSpeed_output, it.windSpeed)
+            binding.textCloudiness.text = getString(R.string.cloudiness_output, it.cloudiness)
         })
 
         vm.updateWeather()
@@ -31,4 +34,5 @@ class MainActivity : AppCompatActivity() {
             vm.saveLocation(binding.editText.text.toString())
         }
     }
+
 }

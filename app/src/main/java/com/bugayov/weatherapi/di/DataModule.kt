@@ -19,7 +19,7 @@ val dataModule = module {
     }
 
     single<WeatherRepository> {
-        WeatherRepositoryImpl(locationStorage = get(), weatherService = get())
+        WeatherRepositoryImpl(weatherService = get())
     }
 
     single<WeatherService> {

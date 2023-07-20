@@ -11,7 +11,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class WeatherRepositoryImpl(
-    private val locationStorage: LocationStorage,
     private val weatherService: WeatherService
     ) : WeatherRepository {
 
