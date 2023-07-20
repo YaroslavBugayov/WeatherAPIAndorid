@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">WeatherAPI</string>
-    <string name="location_output">Location: %1$s</string>
-    <string name="condition_output">Condition: %1$s</string>
-    <string name="temperature_output">Temperature: %1$f</string>
-    <string name="windSpeed_output">Wind speed: %1$f</string>
-    <string name="cloudiness_output">Cloudiness: %1$d</string>
+    <string name="location_output">Location: %s</string>
+    <string name="condition_output">Condition: %s</string>
+    <string name="temperature_output">Temperature: %.2f°C</string>
+    <string name="windSpeed_output">Wind speed: %.2f</string>
+    <string name="cloudiness_output">Cloudiness: %d</string>
 </resources>
