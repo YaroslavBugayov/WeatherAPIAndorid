@@ -12,16 +12,22 @@ class WeatherRepositoryImpl(
     ) : WeatherRepository {
 
     override suspend fun getCurrentWeather(city: String): Resource<Weather> {
-        val weatherResponse = weatherService.getCurrentWeather(city)
-        val conditionImage = weatherImageService.getWeatherImage(weatherResponse.weather[0].icon)
-        return Resource.Success(Weather(
-            location = city,
-            condition = weatherResponse.weather[0].main,
-            conditionImage = conditionImage,
-            temperature = weatherResponse.main.temp,
-            cloudiness = weatherResponse.clouds.all,
-            windSpeed = weatherResponse.wind.speed
-        ))
+        return when (val weatherResponse = weatherService.getCurrentWeather(city)) {
+            is Resource.Error -> Resource.Error("City not found")
+            is Resource.Success -> {
+                val response = weatherResponse.data!!
+                val conditionImage = weatherImageService
+                    .getWeatherImage(response.weather[0].icon)
+                Resource.Success(Weather(
+                    location = city,
+                    condition = response.weather[0].main,
+                    conditionImage = conditionImage,
+                    temperature = response.main.temp,
+                    cloudiness = response.clouds.all,
+                    windSpeed = response.wind.speed
+                ))
+            }
+        }
     }
 
 }

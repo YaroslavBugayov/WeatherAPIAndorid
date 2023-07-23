@@ -26,16 +26,23 @@ class MainViewModel(
     private val errorMutable = MutableLiveData<String?>(null)
     val error: LiveData<String?> = errorMutable
 
-    fun saveLocation(city: String) {
-        setLocationUseCase.execute(city)
-        updateWeather()
-    }
-
     fun updateWeather() {
         val city = getLocationUseCase.execute()
         viewModelScope.launch {
             when (val result = getCurrentWeatherUseCase.execute(city)) {
                 is Resource.Success -> weatherMutable.value = result.data as Weather
+                is Resource.Error -> errorMutable.value = result.message
+            }
+        }
+    }
+
+    fun updateWeather(city: String) {
+        viewModelScope.launch {
+            when (val result = getCurrentWeatherUseCase.execute(city)) {
+                is Resource.Success -> {
+                    weatherMutable.value = result.data as Weather
+                    setLocationUseCase.execute(city)
+                }
                 is Resource.Error -> errorMutable.value = result.message
             }
         }

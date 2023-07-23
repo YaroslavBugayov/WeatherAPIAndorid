@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         vm.updateWeather()
 
         binding.setLocationButton.setOnClickListener {
-            vm.saveLocation(binding.editText.text.toString())
+            vm.updateWeather(binding.editText.text.toString())
         }
     }
 
