@@ -2,6 +2,7 @@ package com.bugayov.weatherapi.presentation.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bugayov.weatherapi.R
@@ -27,6 +28,12 @@ class MainActivity : AppCompatActivity() {
             binding.textWindSpeed.text = getString(R.string.windSpeed_output, it.windSpeed)
             binding.textCloudiness.text = getString(R.string.cloudiness_output, it.cloudiness)
             binding.imageView.setImageBitmap(it.conditionImage)
+        })
+
+        vm.error.observe(this, Observer{ error ->
+            if (error != null) {
+                Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+            }
         })
 
         vm.updateWeather()

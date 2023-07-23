@@ -9,6 +9,7 @@ import com.bugayov.weatherapi.domain.models.Weather
 import com.bugayov.weatherapi.domain.usecases.GetCurrentWeatherUseCase
 import com.bugayov.weatherapi.domain.usecases.GetLocationUseCase
 import com.bugayov.weatherapi.domain.usecases.SetLocationUseCase
+import com.bugayov.weatherapi.domain.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,6 +23,9 @@ class MainViewModel(
     private val weatherMutable = MutableLiveData<Weather>()
     val weather: LiveData<Weather> = weatherMutable
 
+    private val errorMutable = MutableLiveData<String?>(null)
+    val error: LiveData<String?> = errorMutable
+
     fun saveLocation(city: String) {
         setLocationUseCase.execute(city)
         updateWeather()
@@ -30,11 +34,9 @@ class MainViewModel(
     fun updateWeather() {
         val city = getLocationUseCase.execute()
         viewModelScope.launch {
-            try {
-                val weather = getCurrentWeatherUseCase.execute(city)
-                weatherMutable.value = weather
-            } catch (e: Exception) {
-                throw Exception(e)
+            when (val result = getCurrentWeatherUseCase.execute(city)) {
+                is Resource.Success -> weatherMutable.value = result.data as Weather
+                is Resource.Error -> errorMutable.value = result.message
             }
         }
     }
