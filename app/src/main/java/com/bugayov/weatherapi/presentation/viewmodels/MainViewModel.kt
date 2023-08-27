@@ -26,6 +26,10 @@ class MainViewModel(
     private val _city = MutableLiveData<String?>(null)
     val city: LiveData<String?> = _city
 
+    init {
+        loadWeather()
+    }
+
     fun loadWeather() {
         val city = getLocationUseCase.execute()
         findWeather(city)
